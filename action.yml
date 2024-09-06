@@ -1,0 +1,15 @@
+name: 'Action Learning'
+description: 'This action is used to learn how to create a GitHub Action'
+author: 'RH'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub Token'
+    required: true
+  TENOR_TOKEN:
+    description: 'Tenor API Token'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

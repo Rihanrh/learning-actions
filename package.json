@@ -1,0 +1,15 @@
+{
+  "name": "learning-actions",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build src/action.js -o dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RH",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "@vercel/ncc": "^0.38.1"
+  }
+}
