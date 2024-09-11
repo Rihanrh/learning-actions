@@ -1,9 +1,8 @@
-name: Create New Branch
+name: Create New Branch on PR
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [opened]
 
 jobs:
   create_branch:
@@ -11,10 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Create new branch
+        id: create_branch
         uses: ./
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          branch_name: new-feature-${{ github.run_number }}
-          base_branch: main
+          branch_name: pr-${{ github.event.pull_request.number }}-feature
+          base_branch: ${{ github.event.pull_request.base.ref }}
       - name: Print new branch name
         run: echo "New branch created: ${{ steps.create_branch.outputs.branch_name }}"
