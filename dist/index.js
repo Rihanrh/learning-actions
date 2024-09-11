@@ -31104,6 +31104,8 @@ async function run() {
         const { context = {} } = github;
         const { owner, repo } = context.repo;
 
+        console.log(`Creating new branch: ${branchName} based on ${baseBranch}`);
+
         // Get the SHA of the base branch
         const { data: refData } = await octokit.rest.git.getRef({
             owner,
@@ -31123,6 +31125,7 @@ async function run() {
         console.log(`Successfully created branch: ${branchName}`);
         core.setOutput("branch_name", branchName);
     } catch (error) {
+        console.error('Error:', error.message);
         core.setFailed(error.message);
     }
 }
