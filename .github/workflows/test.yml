@@ -17,4 +17,4 @@ jobs:
           branch_name: pr-${{ github.event.pull_request.number }}-feature
           base_branch: ${{ github.event.pull_request.base.ref }}
       - name: Print new branch name
-        run: echo "New branch created: ${{ steps.create_branch.outputs.branch_name }}"
+        run: echo "New branch created ${{ steps.create_branch.outputs.branch_name }}"
