@@ -1,18 +1,20 @@
-name: Test
+name: Create New Branch
 
 on:
-  pull_request:
-    types: [opened]
-
-permissions:
-  pull-requests: write
-  issues: write
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
+  create_branch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - name: Create new branch
+        uses: ./
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          branch_name: new-feature-${{ github.run_number }}
+          base_branch: main
+      - name: Print new branch name
+        run: echo "New branch created: ${{ steps.create_branch.outputs.branch_name }}"

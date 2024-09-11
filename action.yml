@@ -1,14 +1,22 @@
-name: 'Action Learning'
-description: 'This action is used to learn how to create a GitHub Action'
+name: 'Create New Branch'
+description: 'This action creates a new branch in the repository'
 author: 'RH'
 
 inputs:
   GITHUB_TOKEN:
     description: 'GitHub Token'
     required: true
-  TENOR_TOKEN:
-    description: 'Tenor API Token'
+  branch_name:
+    description: 'Name of the new branch to create'
     required: true
+  base_branch:
+    description: 'Name of the base branch'
+    required: true
+    default: 'main'
+
+outputs:
+  branch_name:
+    description: 'The name of the created branch'
 
 runs:
   using: 'node20'
