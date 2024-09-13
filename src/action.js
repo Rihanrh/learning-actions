@@ -10,6 +10,7 @@ async function run() {
     const octokit = github.getOctokit(GITHUB_TOKEN);
     const { context = {} } = github;
     const { owner, repo } = context.repo;
+		const { pull_request } = context.payload;
 
     console.log(`Creating new branch: ${branchName} based on ${baseBranch}`);
 
