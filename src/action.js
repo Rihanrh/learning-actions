@@ -40,7 +40,9 @@ async function run() {
     await octokit.rest.issues.createComment({
       ...context.repo,
       issue_number: pull_request.number,
-      body: `A new branch '${branchName}' has been created based on this pull request.`,
+      body: `A new branch '${branchName}' has been created. 
+			The true function of this comment is to show that a new branch has been created when a test case failed. 
+			Currently, it is triggered by a pull request event.`,
     });
 
     console.log(`Successfully created branch: ${branchName}`);
