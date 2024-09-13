@@ -12,13 +12,23 @@ jobs:
   create_branch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Determine new branch name
+        id: branch_name
+        run: |
+          echo "BRANCH_PREFIX=pr-" >> $GITHUB_OUTPUT
+          echo "BRANCH_SUFFIX=feature" >> $GITHUB_OUTPUT
+
       - name: Create new branch
         id: create_branch
         uses: ./
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          branch_name: pr-${{ github.event.pull_request.number }}-feature
+          branch_prefix: ${{ steps.branch_name.outputs.BRANCH_PREFIX }}
+          branch_suffix: ${{ steps.branch_name.outputs.BRANCH_SUFFIX }}
           base_branch: ${{ github.event.pull_request.base.ref }}
+          
       - name: Print new branch name
         run: echo "New branch created ${{ steps.create_branch.outputs.branch_name }}"

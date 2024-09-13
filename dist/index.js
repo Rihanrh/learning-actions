@@ -31094,16 +31094,23 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 
+function generateBranchName(prefix, prNumber, suffix) {
+  return `${prefix}${prNumber}${suffix ? '-' + suffix : ''}`;
+}
+
 async function run() {
   try {
     const GITHUB_TOKEN = core.getInput("GITHUB_TOKEN");
-    const branchName = core.getInput("branch_name");
+    const branchPrefix = core.getInput("branch_prefix");
+    const branchSuffix = core.getInput("branch_suffix");
     const baseBranch = core.getInput("base_branch");
 
     const octokit = github.getOctokit(GITHUB_TOKEN);
     const { context = {} } = github;
     const { owner, repo } = context.repo;
-		const { pull_request } = context.payload;
+    const { pull_request } = context.payload;
+
+    const branchName = generateBranchName(branchPrefix, pull_request.number, branchSuffix);
 
     console.log(`Creating new branch: ${branchName} based on ${baseBranch}`);
 
@@ -31126,7 +31133,7 @@ async function run() {
     await octokit.rest.issues.createComment({
       ...context.repo,
       issue_number: pull_request.number,
-      body: "Placeholder text. Function is to tell the user that a new branch has been created if a test case fails. Currently activates on every Pull Request.",
+      body: `A new branch '${branchName}' has been created based on this pull request.`,
     });
 
     console.log(`Successfully created branch: ${branchName}`);
@@ -31138,7 +31145,6 @@ async function run() {
 }
 
 run();
-
 })();
 
 module.exports = __webpack_exports__;

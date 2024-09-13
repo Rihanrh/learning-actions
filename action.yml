@@ -1,18 +1,20 @@
 name: 'Create New Branch'
-description: 'This action creates a new branch in the repository'
-author: 'RH'
+description: 'This action creates a new branch based on a pull request'
+author: 'Your Name'
 
 inputs:
   GITHUB_TOKEN:
     description: 'GitHub Token'
     required: true
-  branch_name:
-    description: 'Name of the new branch to create'
+  branch_prefix:
+    description: 'Prefix for the new branch name'
     required: true
+  branch_suffix:
+    description: 'Suffix for the new branch name'
+    required: false
   base_branch:
     description: 'Name of the base branch'
     required: true
-    default: 'main'
 
 outputs:
   branch_name:
